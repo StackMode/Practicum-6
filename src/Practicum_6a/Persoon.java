@@ -17,34 +17,30 @@ public class Persoon {
         return budget;
     }
 
-
     public boolean koop(Game g) {
-        if (mijnGames.contains(g)) {
-            return false; }
-        else if (g.huidigeWaarde() > budget){
-            return false;}
-        else {
-            budget -= g.nieuwprijs;;
-            mijnGames.add(g);
+        if (g.huidigeWaarde() < budget)
+
             return true;
-        }
+        else
+            return false;
     }
 
     public boolean verkoop(Game g, Persoon koper) {
-        if (!(this.mijnGames.contains(g))) {
-            return false;
-        }
-        else if (koper.mijnGames.contains(g) || g.nieuwprijs > koper.budget) {
-            return false;
-        }
-        else {
-            koper.budget -= g.nieuwprijs;
-            this.budget += g.nieuwprijs;
-            this.mijnGames.remove(g);
-            koper.mijnGames.add(g);
-            return true;
-        }
+       if(g.huidigeWaarde() < koper.getBudget())
+           return true;
+       else
+           return false;
     }
+
+    public Game zoekGameOpNaam(String titel) {
+        for (Game g : mijnGames) {
+            if (g.getNaam().equals(titel)) {
+                return g;
+            }
+        }
+        return null;
+    }
+
     public ArrayList bepaalGamesNietInBezit(ArrayList<Game> lijst){
         ArrayList filterlijst = new ArrayList();
         for (Game g : mijnGames){
@@ -57,12 +53,6 @@ public class Persoon {
         return filterlijst;
     }
     public String toString() {
-        String bud = String.format("%.2f", budget);
-        String games = "";
-        for(Game game : mijnGames) {
-            games += "\n" + game.toString();
-
-        }
-        return naam + " heeft een budget van €" + bud + " en bezit de volgende games:" + games;
+        return naam + " heeft een budget van " + budget + " en bezit de volgende games:\n " + mijnGames;
     }
 }
