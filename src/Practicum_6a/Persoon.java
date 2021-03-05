@@ -24,7 +24,7 @@ public class Persoon {
         else if (g.huidigeWaarde() > budget){
             return false;}
         else {
-            budget -= g.nieuwprijs;;
+            budget -= g.nieuwprijs;
             mijnGames.add(g);
             return true;
         }
@@ -44,6 +44,15 @@ public class Persoon {
             koper.mijnGames.add(g);
             return true;
         }
+    }
+
+    public Game zoekGameOpNaam(String titel) {
+        for (Game g : mijnGames) {
+            if (g.getNaam().equals(titel)) {
+                return g;
+            }
+        }
+        return null;
     }
 
     public String toString() {
